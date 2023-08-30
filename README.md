@@ -5,8 +5,10 @@ Please install apk's before push this config
 # prerequites :
 - zsh + oh-my-zsh
 - lolcat
+- figlet
 - termux-setup-storage
 
+# usage
 > Yours setting
 ```
 source ~/storage/shared/termuxlauncher/.apps-launcher
