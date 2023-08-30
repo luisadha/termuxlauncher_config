@@ -1,0 +1,243 @@
+echo "load from.. (.zshrc)"
+echo
+export ZSH=$HOME/.oh-my-zsh
+ZSH_THEME="osx2"
+plugins=(
+  git 
+  zsh-autosuggestions 
+  zsh-syntax-highlighting 
+  bgnotify
+  zsh-fzf-history-search
+  zshmarks-improved
+  alias-finder
+  autoenv
+)
+# ~/.zshrc
+
+zstyle ':omz:plugins:alias-finder' autoload yes # disabled by default
+zstyle ':omz:plugins:alias-finder' longer yes # disabled by default
+zstyle ':omz:plugins:alias-finder' exact yes # disabled by default
+zstyle ':omz:plugins:alias-finder' cheaper yes # disabled by default
+
+PATH="$PREFIX/bin:$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
+export PATH
+
+LINK="https://github.com/mayTermux"
+export LINK
+
+LINK_SSH="git@github.com:mayTermux"
+export LINK_SSH
+export AUTOENV_ENABLE_LEAVE=true
+
+export TERM=xterm-256color 
+
+source $ZSH/oh-my-zsh.sh
+source $HOME/.config/lf/icons
+source $HOME/.aliases
+source $HOME/.autostart
+
+# config orang
+
+# ==============================================================================
+# Program/File:  zshrc
+# Description:   Config file to zsh
+# Software/Tool: zsh
+# ==============================================================================
+
+# Exports
+export LANG="en_US.UTF-8"
+export ARCHFLAGS="-arch x86_64"
+export TERM="xterm-256color"
+export TERMINAL="kitty"
+export EDITOR="micro"
+export VISUAL="micro"
+export MICRO_TRUECOLOR=1
+export SUDO_EDITOR="vim"
+export BROWSER="brave-browser"
+export PYTHONDONTWRITEBYTECODE=1
+export QT_QPA_PLATFORM=xcb
+export XDG_CURRENT_DESKTOP=sway
+
+# User Directories
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+
+# History config
+HISTORY_DIR="$XDG_CACHE_HOME/zsh"
+[ ! -d "$HISTORI_DIR" ] && mkdir $HISTORY_DIR 2> /dev/null
+HISTFILE="$HISTORY_DIR/history"
+HISTSIZE=5000
+SAVEHIST=5000
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt incappendhistory
+setopt histignorealldups
+
+# Auto cd command
+setopt autocd autopushd
+setopt extendedglob nomatch menucomplete
+setopt interactive_comments
+zle_highlight=('paste:none')
+
+# beeping is annoying
+unsetopt BEEP
+
+# Disable ctrl-s
+stty -ixon
+
+# emacs mode
+set -o emacs
+
+# Export local bin to path
+if [ -d "$HOME/.local/bin" ] ; then
+  export PATH="$HOME/.local/bin":$PATH
+fi
+
+# Export local bin to path
+if [ -d "$HOME/.cargo/bin" ] ; then
+  export PATH="$HOME/.cargo/bin":$PATH
+fi
+
+# Verify asdf-vm folder
+# if [ -d "$HOME/.asdf" ] ; then
+  # . $HOME/.asdf/asdf.sh
+# fi
+
+# Export vim editor in ssh connection
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR="micro"
+else
+  export EDITOR="micro"
+fi
+
+# fzf source
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Aliases
+source $HOME/.aliases
+
+# Init starship
+: 'eval "$(starship init zsh)"'
+
+unsetopt listambiguous
+autoload -Uz compinit
+compinit -d $XDG_CACHE_HOME/zsh
+compinit
+
+# Enable no case search
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
+# Enable arrows navigation in tab completion
+zstyle ':completion:*' menu select
+
+# Enable pattern search by typed command
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search
+bindkey "^[[B" down-line-or-beginning-search
+
+#autoload predict-on
+#predict-on
+
+# Source plugins
+: ' if [[ "$DISTRO" == "arch" ]]; then
+  if [ -d "/opt/asdf-vm" ] ; then
+    . /opt/asdf-vm/asdf.sh
+  fi
+  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+else
+  source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi '
+
+# Environment variables to distrobox containers
+if [[ ! -z ${container} ]]; then
+  export LC_ALL=C.UTF-8
+fi
+
+# ssh and gpg keys config
+#SSH_AGENT_PID=""
+# SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh"
+# gpgconf --launch gpg-agent
+
+# if [[ ! -z ${GNOME_TERMINAL_SCREEN} ]]; then
+  # distrobox enter ubuntu-dev
+# fi
+
+
+if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+  export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+fi
+export GPG_TTY=$(tty)
+# gpg-connect-agent updatestartuptty /bye > /dev/null
+
+# Daftar dibawah adalah config luisadha
+## Normal aliases
+
+   
+   alias g="jump"
+   alias s="bookmark"
+   alias d="deletemark"
+   alias p="showmarks"
+
+
+
+
+
+## Suffix aliases
+alias -s txt='less'
+alias -s jpg='termux-open --content-type image'
+alias -s jpeg='termux-open --content-type image'
+alias -s mp3='play.bin'
+alias -s png='termux-open --content-type image'
+## Common aliases
+
+# alias brandomusicxz='termux-media-player play "$(realpath "${ARG:=$(busybox ls **/*.mp3(.) | shuf -n1)}")"; cd -;'
+alias imjpgrandz='cd ~; timg "$(realpath "${ARG:=$(busybox ls **/*.jpg(.) | shuf -n1)}")"; cd -;'
+alias usleep='toybox usleep'
+
+# Use Aliases To Edit and Reload .zshrc
+alias vimzshrc='nvim $PREFIX/etc/zshrc'
+alias vimbash-bashrc='nvim $PREFIX/etc/bash.bashrc'
+alias vimprofile='nvim $PREFIX/etc/profile'
+alias vimconfig-fish='nvim $PREFIX/etc/fish/config.fish'
+alias vimbase='nvim ~/.zshrc'
+## Glogal opt. aliases
+# alias -g lrsaw="-lrsaw"
+ alias -g verbose="--verbose"
+ alias -g debug="--debug"
+ alias -g ,="$PWD"
+## Functions for Aliases With Parameters
+# Plugin
+# .zshrc
+
+source $HOME/storage/shared/termuxlauncher/.apps-launcher
+
+source ~/termuxlauncher.config
+echo "Daftar Aplikasi : " | figlet
+echo
+echo -e "Usage : l \$wabisnis (config)\n"
+echo -e "        l firefox (default)\n"
+echo -e "\nDownload termuxlauncher apk's first!\n"
+
+echo -e "Powered by termuxlauncher\nConfig by @luisadha\n"
+
+
+l -l | grep -Exo '[a-z0-9:_-]+' | sort -u | xargs | lolcat -r
+
+fpath+=($HOME/.zsh/pure)
+
+
+
+
+
+###### ini 
+#alias brandomusicxz='termux-media-player play "$(realpath "${ARG:-$(busybox ls **/*.mp3(.) | shuf -n1)}")"; cd -;'
+#
+alias brandomusicxz='termux-media-player play "$(realpath "${ARG:-$(busybox ls **/*.mp3(.) | shuf -n1)}")"; cd -;'
+
+brandomusicxz_present=true
