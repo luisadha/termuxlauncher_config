@@ -191,10 +191,6 @@ alias -s mp3='play.bin'
 alias -s png='termux-open --content-type image'
 ## Common aliases
 
-# alias brandomusicxz='termux-media-player play "$(realpath "${ARG:=$(busybox ls **/*.mp3(.) | shuf -n1)}")"; cd -;'
-alias imjpgrandz='cd ~; timg "$(realpath "${ARG:=$(busybox ls **/*.jpg(.) | shuf -n1)}")"; cd -;'
-alias usleep='toybox usleep'
-
 # Use Aliases To Edit and Reload .zshrc
 alias vimzshrc='nvim $PREFIX/etc/zshrc'
 alias vimbash-bashrc='nvim $PREFIX/etc/bash.bashrc'
