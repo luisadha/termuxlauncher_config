@@ -178,15 +178,10 @@ export GPG_TTY=$(tty)
 # Daftar dibawah adalah config luisadha
 ## Normal aliases
 
-   
-   alias g="jump"
-   alias s="bookmark"
-   alias d="deletemark"
-   alias p="showmarks"
-
-
-
-
+alias g="jump"
+alias s="bookmark"
+alias d="deletemark"
+alias p="showmarks"
 
 ## Suffix aliases
 alias -s txt='less'
@@ -212,32 +207,9 @@ alias vimbase='nvim ~/.zshrc'
  alias -g debug="--debug"
  alias -g ,="$PWD"
 ## Functions for Aliases With Parameters
-# Plugin
-# .zshrc
+
+
+
 
 source $HOME/storage/shared/termuxlauncher/.apps-launcher
-
-source ~/termuxlauncher.config
-echo "Daftar Aplikasi : " | figlet
-echo
-echo -e "Usage : l \$wabisnis (config)\n"
-echo -e "        l firefox (default)\n"
-echo -e "\nDownload termuxlauncher apk's first!\n"
-
-echo -e "Powered by termuxlauncher\nConfig by @luisadha\n"
-
-
-l -l | grep -Exo '[a-z0-9:_-]+' | sort -u | xargs | lolcat -r
-
 fpath+=($HOME/.zsh/pure)
-
-
-
-
-
-###### ini 
-#alias brandomusicxz='termux-media-player play "$(realpath "${ARG:-$(busybox ls **/*.mp3(.) | shuf -n1)}")"; cd -;'
-#
-alias brandomusicxz='termux-media-player play "$(realpath "${ARG:-$(busybox ls **/*.mp3(.) | shuf -n1)}")"; cd -;'
-
-brandomusicxz_present=true
