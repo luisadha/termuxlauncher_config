@@ -206,6 +206,16 @@ alias vimbase='nvim ~/.zshrc'
 
 
 
+fpath+=($HOME/.zsh/pure)
 
 source $HOME/storage/shared/termuxlauncher/.apps-launcher
-fpath+=($HOME/.zsh/pure)
+source $HOME/termuxlauncer.config
+
+
+
+
+
+
+
+
+
