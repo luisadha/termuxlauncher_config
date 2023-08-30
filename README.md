@@ -8,10 +8,13 @@ Please install apk's before push this config
 - termux-setup-storage
 
 > Yours setting
+```
 source ~/storage/shared/termuxlauncher/.apps-launcher
-> Additional 
+```
+> Additional
+```
 source ~/termuxlauncher.config
-
+```
 
 Containt repo :
 - .zshrc
